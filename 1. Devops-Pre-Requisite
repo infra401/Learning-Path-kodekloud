@@ -45,6 +45,80 @@ To find a word or phrase, switch to command mode and type
 All occurences of "off" will be hihglighted, press 'N' to jump to next match and continue pressing 'N' to cycle through additional matches.
 
 
+To check current username 
+> whoami
+To retrieve detailed information about your user account - including user ID, group ID, and group memberships
+> id
+to switch to another user account
+> su aparna
+
+
+Downloading Files from the Internet :-
+To download files such as RPM packages, binaries, or images from the internet. You can use 
+'curl' command, which downloads content from a specified URL. The '-O' option saves the output 
+directly to a file:
+> curl http://www.some-site.com/some-file.txt -O
+or
+you can use 'wget' command by providing the complete URL of the file.
+
+
+Package Management
+...............................
+
+Package Managers = simplify software installation by automating tasks that would otherwise by manually intensive.
+
+⏺ RPM - Based Package Management
+CentOS, Red Hat Enterprise Linux, and Fedora use an RPM-based system.
+RPM(Red Hat Package Manager) distributes software in bundles with .rpm extension.
+
+Installing a package: Use '-i' option along with package name to install software from a 
+                      specified location.
+Uninstalling a package: Use '-e' option to remove a package
+Querying package details: Use '-q' option to retrieve information about an installed package.
+
+RPM does no automatically resolve dependencies. Ex, if you install Ansible - which requires Python and additional libraries - using
+RPM alone will not install missing dependencies.
+
+> rpm -i telnet.rpm
+> rpm -e telnet
+> rpm -q telnet
+
+⏺ Dependency Management with Yum
+Yum = high level package managers
+It integrates with RPM while automating dependency resolution.
+> yum install ansible
+(yum searches its configured repositories, locates the specified package and its dependencies, and 
+installs them in the correct order).
+
+⏺ Understanding Repositories
+Yum retrieves packages from software repositories - collections of RPM package stored locally or on remote servers.
+'/etc/yum.repos.d' = repository configuration files located
+If default repositories do not cover requirements or if latest version needed, then additional
+repositories can be configured by following software's documentation.
+
+To list available repositories, 
+> yum repolist
+To list configuration files that define these repositories
+> ls /etc/yum.repos.d/
+(Opening any of these files will show a URL pointing to repository location, where you can view RPM files available for download)
+
+Listing installed or available pakcages
+let for Ansible
+> yum list ansible
+Removing an installed package
+> yum remove ansible
+
+Listing all available package versions
+use the '--showduplicates' option to list all available versions
+> yum --showduplicates list ansible
+
+
+Services
+................
+
+
+
+
 
 
 
