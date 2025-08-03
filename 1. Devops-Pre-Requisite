@@ -115,10 +115,78 @@ use the '--showduplicates' option to list all available versions
 
 Services
 ................
+Linux services = background processes essential for running software such as webservers, database servers and devops tools.
+Ensure critical application continue running after a server restart, start in correct order when multiple services are present, and manage dependency effectively.
+
+software packages that runs in background after installation , are automatically set as a service.
+ex: installing apache web server create an HTTPD service.
+
+start HTTPD service with legacy command:
+> service httpd start
+
+but we prefer systemctl command:
+> systemctl start httpd
+> systemctl stop httpd
+> systemctl status httpd
+> systemctl enable httpd
+> systemctl disable httpd
+
+⏺ Configuring a Custom Application as a Service
+Let a simple Pytthon-based web server located at '/opt/code/my_app.py'
+When executed with Python interpreter , it starts a web server listening on port 5000.
+
+Run command
+> /usr/bin/python3 /opt/code/my_app.py
+Verify the server is working using
+> curl http://localhost:5000
+(returns hello world)
+
+By configuring your Python application as  a service, you abstract the need to maually
+handle the command line and file paths each time.
+Start and stop service with
+> systemctl start my_app
+> systemctl stop my_app
+This approcah simplifies service management and minimizes manual intervention.
+
+⏺ Creating a systemd Unit File
+To ensure application starts automatically on boot or restarts if it crashes
+These files stored in '/etc/systemd/system'
+> vi my_app.service
+[Unit]                                      # Provides metadata and a short description of the service
+Description=My Python Web Application
+
+[Service]                                   # contains the command to start your application ('ExecStart')
+ExecStart=/usr/bin/python3 /opt/code/my_app.py
+ExecStartPre=/opt/code/configure_db.sh     #('ExecStartPre') or ('ExecStartPost') optional command that run before or after starting service       
+ExecStartPost=/opt/code/email_status.sh
+Restart=always          # restart policy
+
+[Install]               # configures the service to begin when the system reaches multi-user target during boot sequence
+WantedBy=multi-user.target
+
+Reload systemd to register your new service
+> systemctl daemon-reload
+Start the service
+> systemctl start my_app
+> systemctl status my_app
+Test service again
+> curl http://localhost:5000
+
+Example: The Docker Service
+consider docker daemon
+After installing Docker, an executable named 'docker' is available at '/usr/bin/docker' and it is configured
+as a service using a unit file typically located at '/lib/systemd/system/dockr.service'
+
+After installation, docker daemon automatically runs in background and listens for Docker commands.
+This configuration serves as a model for setting up amy custom application as a service.
 
 
-
-
+****************************
+****************************
+NETWORKING BASICS
+****************************
+****************************
+https://notes.kodekloud.com/docs/DevOps-Pre-Requisite-Course/Networking-Basics/A-Quick-Reminder
 
 
 
