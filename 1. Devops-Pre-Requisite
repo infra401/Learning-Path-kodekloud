@@ -4,3 +4,53 @@ LINUX BASICS
 **********************
 **********************
 
+⏺ In CLI, various shells include
+ Bourne shell (sh)
+ C shell (csh or tcsh)
+ Z shell (zsh)
+ Bourne Again Shell (bash)
+
+⏺ Old Bourne shell = limited
+Modern bash shell = advances features such as arithmetic operations, conditionals and arrays.
+
+⏺ To verify which shel you are using
+> echo $SHELL
+
+echo = prints text or value of an environment variable, as indicated by $(dollar) sign.
+
+- Executing multiple commands in sequence by separating them with semicolons
+> cd new_directory; mkdir www; pwd
+
+⏺ Essential vi Operations :-
+(some common operations in command mode)
+
+Operations                   Command                       Description
+Navigation                 Arrow keys or h, j, k, l        Move left, down, up and right respectively
+Delete a character         x                               Delete the character under the cursor
+Delete a line              dd                              Removes the entire line
+Copy (yank) a line         yy                              copy the current line into the buffer
+Paste copied content       p                               Paste the copied or deleted content
+Scroll up                  ctrl + u                        scroll up within the document
+scroll down                ctrl + d                        scroll down within the document
+Command prompt             :                               Enter further commands (e.g. save, quit)
+
+To manage file operations: 
+Save your changes: Type ':w' (you can optionally append a file name)
+Quit without saving: Type ':q'
+Save and quit: Type ':wq'
+
+Search for text :
+To find a word or phrase, switch to command mode and type
+> /off
+All occurences of "off" will be hihglighted, press 'N' to jump to next match and continue pressing 'N' to cycle through additional matches.
+
+
+
+
+
+
+
+
+
+
+
