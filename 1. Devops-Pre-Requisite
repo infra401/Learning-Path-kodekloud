@@ -451,8 +451,61 @@ DNS Diagnostic Tools
 Application Basics
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-https://notes.kodekloud.com/docs/DevOps-Pre-Requisite-Course/Applications-Basics/Introduction
+Compiled Languages
+----------------------
+Languages like Java, C, and C++ follow a two-step process.
+First, you write the source code and then compile it into machine code.
 
+Ex, consider following simple Java program:
+Save the code in a file named 'MyClass.java'
+public class MyClass {
+  public static void main(String[] args) {
+     System.out.println("Hello World");
+  }
+}
+
+- Compile source code with:
+ > javac MyClass.java
+This command generates a compiled file named 'MyClass.class' 
+
+- Then, Run program using
+> java MyClass
+output: Hello World
+
+
+Interpreted Languages
+-------------------------------
+- These languages like Python execute source code directly using an interpreter, eliminating compilation step.
+
+Ex, sample Python application:
+def print_message():
+  print("Hello World")
+
+if _name_=='_main_':
+  print_message()
+
+- Execute program using
+> python main.py
+output: Hello World
+
+- Languages like Python do not require manual compilation, the Python interpreter internally compiles source code
+into an intermediate bytecode (stored as '.pyc' file).
+- This bytecode is then executed by the Python Virtual Machine (VM), which converts it into machine code that your computer can 
+  process.
+
+
+Packages, Modules and Libraries
+---------------------------------------
+- Developers frequently share reusable code in form of packages, modules and libraries.
+- THese packages can handle diverse functionalities such as filesystem operations, mathematical computations,
+  OS interactions, web server setup, and more.
+- Applications depend on these packages and managing them efficiently is crucial in Devops
+- Tools such as NPM for Node.js and PIP for Python are used to manage these dependencies, helping prevent issues during build process.
+
+
+Java Introductions
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+https://notes.kodekloud.com/docs/DevOps-Pre-Requisite-Course/Applications-Basics/Java-Introduction
 
 
 
