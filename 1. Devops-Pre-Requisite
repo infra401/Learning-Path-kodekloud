@@ -329,6 +329,130 @@ the '/etc/hosts' file
 
 Centralizing DNS with a DNS Server
 -----------------------------------------
+- To simplify name resolution in larger networks, you store these mapping on a single DNS server.
+
+ For example, consider these entries on your centralized DNS server:
+
+cat >> /etc/hosts
+192.168.1.10  web
+192.168.1.11  db
+192.168.1.12  nfs
+192.168.1.20  web
+192.168.1.21  db-1
+192.168.1.22  nfs-1
+192.168.1.31  web-1
+192.168.1.32  db-2
+192.168.1.40  web-2
+192.168.1.41  sql
+192.168.1.42  web-5
+192.168.1.61  web-test
+192.168.1.63  db-prod
+192.168.1.64  nfs-4
+192.168.1.60  web-3
+192.168.1.62  nfs-prod
+
+- COnfigure each host on your network to use this DNS server for name resolution by specifying 
+its IP address in '/etc/resolv.conf'
+ex, if your DNS server's IP address is 192.168.1.100, add:
+> cat >> /etc/resolv.conf
+nameserver 192.168.1.100
+With this setup if a hostname isn't locally resolved via '/etc/hosts', the system queries the DNS server.
+- Updating DNS server's mappings automatically refreshes host resolution across the network.
+
+- Local '/etc/hosts' entries remain usefull for specific purposes.
+- Let if you provision a test server that only you need to access, add an entry like
+> cat >> /etc/hosts
+192.168.1.115 test
+> ping test
+
+- The DNS resolution order is controlled by '/etc/nsswitch.conf'
+> cat /etc/nsswitch.conf
+This configuration instructs system to check local '/etc/hosts' file first ("files") and then query 
+DNS server ("dns")
+
+
+- To resolve external domain, you can add a public DNS server (such as Google's 8.8.8.8) to '/etc/resolv.conf'
+  or set your internal DNS server to forward queries.
+
+> cat >> /etc/hosts
+192.168.1.115 test
+> ping www.facebook.com
+ping: www.facebook.com: Temporary failure in name resolution
+
+- Once you add DNS server in '/etc/resolv.conf'
+> cat >> /etc/resolv.conf
+> ping www.facebook.com
+now working
+
+- The ".com" indicates a top-level domain (TLD) that classifies the website under specific categories such as 
+  commercial or network-related.
+
+
+DNS Hierarchy and Search Domains
+---------------------------------------
+
+Hierarchical structure of Google's domain:
+"google.com" = primary domain
+"www" subdomain
+other subdomain = map.google.com, drive.google.com  represent different Google services
+
+- When queries, your DNS server may need to forward the request up the hierarchy - which involves root DNS servers, TLD servers, and authoritatiive DNS servers - to resolve the domain to correct
+IP address.
+
+
+Let a company have domain like mycompany.com and sudomain include ww.mycompany.com(for public website), 
+mail.mycompany.com(for email), payroll.mycompany.com(for payroll services)
+- These DNS records are centrally managed by internal DNS server.
+
+TO simlify internal hostname resolution, you can configure a search domain in '/etc/resolv.conf'
+- This allows you to use short names instead of fully qualified domain names.
+> cat >> /etc/resolv.conf
+nameserver 192.168.1.100
+search mycompany.com
+
+Now, when you ping short name like "web", system automatically appends "mycompany.com" to resolv it
+> ping web.mycompany.com
+
+- Attempting to ping "web" without proper search settings may result in resolution failure
+> ping web 
+Temporary failure
+
+- You can also list multiple domain in search configuration to allow the resolver to try several suffixes for a short hostname.
+
+
+Common DNS Record Types
+------------------------------
+- DNS servers store mappings b/w hostnames and IP addresses, and these mappings are defined by
+  various record types.
+
+Record Type     Example Hostname         Example Mapping
+A                web-server              192.168.1.1
+AAAA             web-server              2001:0db8:85a3:0000:0000:8a2e:0370:7334
+CNAME            food.web-server         Points to eat.web-server, hungry.web-server
+
+A record maps a hostname to an IPv4 address
+AAAA record maps a hostname to IPv6 address
+CNAME (canonical name) record creates an alias for another domain name - useful for routing multiple names to same application
+
+
+DNS Diagnostic Tools
+-----------------------------
+- ping = standard tool for checking DNS resolution
+- NSLookup and DIG = provide more detailed insights
+
+- NSLookup directly queries DNS server, bypassing local '/etc/hosts' entries
+> nslookup www.google.com
+
+- DIG provides comprehensive DNS information
+> dig www.google.com
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Application Basics
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
 
 
 
