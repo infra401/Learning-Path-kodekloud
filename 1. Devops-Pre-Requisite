@@ -186,7 +186,94 @@ This configuration serves as a model for setting up amy custom application as a 
 NETWORKING BASICS
 ****************************
 ****************************
-https://notes.kodekloud.com/docs/DevOps-Pre-Requisite-Course/Networking-Basics/A-Quick-Reminder
+
+- 2 computers (VMs) that need to communicate.
+Both systems connected to a switch and each host requires and interface - either physical or virtual -
+to establish that connection.
+
+To view available interface on linux host
+> ip link
+
+Assume network subnet is 192.168.1.0, 
+Assign an IP address from this range to each system
+on host 1 
+> ip addr add 192.168.1.10/24 dev eth0
+on host 2
+> ip addr add 192.168.1.11/24 dev eth0
+
+Once ip addresses are configured. systems can communicate via switch.
+test connectivity with ping
+> ping 192.168.1.11
+
+Switch = only facilitates communication within the same network.
+Consider second network with CIDR 192.168.2.0 where host IPs might be 192.168.2.10 and 192.168.2.11 
+To enable communication b/w systems on network 192.168.1.0 and 192.168.2.0, a router becomes essential.
+
+Router = connects separate networks by using multiple network interfaces.
+Assign it IP address 192.168.1.1 on first network and 192.168.2.1 on second .
+This configuration les router forward traffic b/w the networks.
+
+https://kodekloud.com/kk-media/image/upload/v1752873510/notes-assets/images/DevOps-Pre-Requisite-Course-Networking-Basics/frame_140.jpg
+
+system B (192.168.1.11) to reach system C (192.168.2.10) must use router as its gateway.
+
+To check current routing table on linux
+> route
+Without additional configuration. system B can only communicate within its own network.
+
+To route traffic destined for 192.168.2.0 network, add an entry on system B:
+> ip route add 192.168.2.0/24 via 192.168.1.1
+After adding this route, system B's routing table will reflect that traffic t 192.168.2.0 is forwarded thorugh the router.
+
+- Using the default gateway simplifies routing for internet access.
+
+When systems need internet access - such as reaching Google within the 172.217.104.0 network - the router connected to th internet mist be desginated
+as default gateway.
+To set up a default route
+> ip route add default via 192.168.2.1
+This default route catches any packet destined for an unspecified network.
+> route
+
+- Both "default" keyword and "0.0.0.0" entry function as catch-all destinations for packets 
+  that do not match more specific routes.
+
+- In environments with multiple routers, such as one handling internet traffic and another for internet networks, you must create separate routing entries.
+Ex, if traffic destined for network 192.168.1.0 should use a router at 192.168.2.2 while all other uses
+192.168.2.1 as default gateway, set route as
+> ip route add 192.168.1.0/24 via 192.168.2.2
+> route
+
+
+Setting up Linux as a Router
+----------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
