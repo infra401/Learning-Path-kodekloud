@@ -285,6 +285,54 @@ To enable permanent IP forwarding, modify the configuration in /etc/sysctl.conf 
 
 DNS
 ---------------
+Imaging you have 2 computers A and B on same network with IPs 192.168.1.10 and 192.168.1.11 res.
+verify connectivity
+> ping 192.168.1.11
+
+suppose system B provides database servics, so to refer to it "db"
+ping "db" from system A 
+> ping db
+(unknown host db)
+
+To reolve this add an entry to '/etc/hosts' file on system A to map IP address to name "db"
+> cat >> /etc/hosts
+192.168.1.11 db
+> ping db
+
+System A relies entierely on '/etc/hosts' entry for name resolution. It does not verify whether system B's
+actual hostname (as reported by 'hostname') matches "db".
+
+You can also add multiple alias for same IP address
+> cat >> /etc/hosts
+192.168.1.11 db
+192.168.1.11 www.google.com
+
+After this both names will resolve to 192.168.1.11
+> ping db
+> ping www.google.com
+
+Each time you reference a hostname - whether using ping, SSH or curl , the system first checks 
+the '/etc/hosts' file
+> cat >> /etc/hosts
+192.168.1.11 db
+192.168.1.11 www.google.com
+> ping db
+> ssh db
+> curl http://www.google.com
+
+- THis translation of a hostname to an IP address is known as name resolution.
+- While managing small networks via local '/etc/hosts' files works well, maintaining consistency
+  bcomes difficult as the number of hosts increases.
+- If a server's IP address changes , updating the '/etc/hosts' file on every host can be major headache.
+- A centralized DNS server eliminates this problem.
+
+
+Centralizing DNS with a DNS Server
+-----------------------------------------
+
+
+
+
 
 
 
