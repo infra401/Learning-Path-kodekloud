@@ -246,6 +246,53 @@ Ex, if traffic destined for network 192.168.1.0 should use a router at 192.168.2
 
 Setting up Linux as a Router
 ----------------------------------
+Consider configuring a linux host as a router.
+
+Three hosts, A, B and C
+Hosts A and B belong to 192.168.1.0 network
+Hosts B and C are part of 192.168.2.0 network.
+Host B connects to both networks via two interfaces - etho and eth1 with IP addresses 192.168.1.6 and 192.168.2.6 res.
+Host A has IP address 192.168.1.5 and C has 192.168.2.5
+
+If host A pings host C 
+> ping 192.168.2.5
+(network unreachable)
+Error occurs bcoz host A doesnot know to use host B as gateway to reach 192.168.2.0
+To resolve this, add a route on host A,
+> ip route add 192.168.2.0/24 via 192.168.1.6
+SImilarly, inform host C to use host B as its gateway for 192.168.1.0 network:
+> ip route add 192.168.1.0/24 via 192.168.2.6
+
+Once these routes are added, host A can reach host C.
+However, you might still not receive any ping responses bcoz Linux by defaul donot forward
+packets b/w interfaces - a security measure to prevent unitended bridging of networks.
+
+To check if IP forwarding is enables, inspect /proc/sys/net/ipv4/ip_forward
+To determine if IP forwarding is enabled,
+> cat /proc/sys/net/ipv4/ip_forward
+# Expected output:
+# 0
+Since output is 0, packet forwarding is disabled.
+
+To enable it temporarily
+> echo 1 > /proc/sys/net/ipv4/ip_forward
+now, ping from host A to host c
+> ping 192.168.2.5
+
+This change does not persist after a reboot.
+To enable permanent IP forwarding, modify the configuration in /etc/sysctl.conf file.
+
+
+DNS
+---------------
+
+
+
+
+
+
+
+
 
 
 
