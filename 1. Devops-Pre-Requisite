@@ -718,7 +718,19 @@ This approach automates multiple steps of the build process, reducing need for m
 NodeJS Introduction
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+- Initially, web pages are simple - mainly consisting of text links, basic HTML code, and a few
+  images with minimal CSS-based styling.
 
+- JavaScript transformed web development by enabling interactive and dynamic web pages.
+- Witch JavaScript, developers built features like calculators, animations, games, and dynamic graphs directly
+  in browser.
+- This innovation led to emergence of popular client-side frameworks such as jQuery, AngularJS, ReactJS, VueJS, EmberJS, BackboneJS.
+- These frameworks run on client side - executing code on user's systems - while the back-end was traditionally handled
+  by languages like Java, python or Ruby.
+
+- Node.js revolutionized this landscape by allowing JavaScript to run on server side.
+
+https://notes.kodekloud.com/docs/DevOps-Pre-Requisite-Course/Applications-Basics/NodeJS-Introduction
 
 
 
