@@ -729,10 +729,53 @@ NodeJS Introduction
   by languages like Java, python or Ruby.
 
 - Node.js revolutionized this landscape by allowing JavaScript to run on server side.
+This menas developers can now build full-stack applications using Javascript alone, unifying client-side and server-side
+developemnt.
+- Node.js is a server-side JavaScript environment that efficiently handles a large nuber of concurrent connections 
+through its non-blocking I/O model.
+- It is open-source, free and compatible with multiple platforms, including Windows, Linux, Unix and macOS.
 
-https://notes.kodekloud.com/docs/DevOps-Pre-Requisite-Course/Applications-Basics/NodeJS-Introduction
+Once Node.js is installed verify the installation using the command-line utility:
+> node -v
+Next, run a simple Node.js application to see it in action:
+> node add.js
+
+content of sample "add.js" file:
+// Return the addition of two numbers
+let add = function(a, b) {
+    return a + b;
+};
+const a = 10, b = 5;
+console.log("Addition : " + add(a, b));
 
 
+Node JS NPM
+~~~~~~~~~~~~~~~~~
+
+Introduction to Packages and Dependencies
+...........................................
+Node.js offers a diverse ecosystem of modules maintained by both core team and global community.
+These packages cover a wide array of functionalities - from file operations and web servers to database interactions and security measures -  and 
+are hosted on npmjs.com. 
+The npm tool, automatically installed with Node.js, empowers developers to create, share, and install these packages seamlessly.
+
+TO verify the version of your npm CLI utility, run:
+> npm -v
+
+Yoy can search for packages using 'npm search' command. For instance, searching for a package related to file operations might 
+yield:
+> npm search file
+Once you identify the desired package, install it using:
+> npm install file
+
+THis command creates a directory named 'node_modules' in your current working directory, where the pakcage files (including license, README, and 
+module code typically in a subdirectory like 'lib') are stored.
+Each package also comes with a 'package.json' file that contains valuable metadata such as the pakcage name, version, author details, and repository URL.
+This metadata can be instrumental in troubleshooting and managing dependencies.
+
+
+Example of 'package.json' file:
+https://notes.kodekloud.com/docs/DevOps-Pre-Requisite-Course/Applications-Basics/Node-JS-NPM
 
 
 
