@@ -775,7 +775,26 @@ This metadata can be instrumental in troubleshooting and managing dependencies.
 
 
 Example of 'package.json' file:
+(https://notes.kodekloud.com/docs/DevOps-Pre-Requisite-Course/Applications-Basics/Node-JS-NPM)
+
+- Always review the 'package.json' file of external packages to ensure compatibility and to understand
+  their dependency requirements.
+
+
+Local vs. Global Package Installation
+............................................
+- Packages can be installed either locally within your application directory or globally across your system.
+
+Local Installation: 
+Running 'npm install' without additional options installs the package locally.
+
+complete it :
+
 https://notes.kodekloud.com/docs/DevOps-Pre-Requisite-Course/Applications-Basics/Node-JS-NPM
+
+
+
+
 
 
 
